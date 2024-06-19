@@ -13,9 +13,10 @@ export default function Mystore() {
           Back to home
         </Link>
       </div>
-      <div className="container grid grid-cols-3 gap-10 ">
-        {cart &&
-          cart.map(({ id, img, price, title, count }) => {
+
+      {cart.length !== 0 ? (
+        <div className="container grid grid-cols-3 gap-10 ">
+          {cart.map(({ id, img, price, title, count }) => {
             return (
               <div
                 key={id}
@@ -53,7 +54,17 @@ export default function Mystore() {
                     }}
                   />
                   <svg
-                    onClick={() => deleteitem(id)}
+                    onClick={() => {
+                      const isConfirmed = window.confirm(
+                        "Haqiqatdan ham productni o'chirishni xohlaysizmi?"
+                      );
+                      if (isConfirmed) {
+                        deleteitem(id);
+                        alert("Product o'chirildi !");
+                      } else {
+                        alert("o'chirish bekor qilindi");
+                      }
+                    }}
                     style={{ cursor: "pointer" }}
                     viewBox="0 0 24 24"
                     fill="none"
@@ -94,7 +105,12 @@ export default function Mystore() {
               </div>
             );
           })}
-      </div>
+        </div>
+      ) : (
+        <h1 className="text-3xl flex flex-col items-center">
+          The product you were looking for was not found !
+        </h1>
+      )}
     </>
   );
 }
