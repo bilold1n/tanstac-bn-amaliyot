@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Login from "./pages/login";
 import Register from "./pages/Register";
 import { useSelector } from "react-redux";
+import Mystore from "./pages/mystore";
 
 function ProtectedRoute({ children }) {
   const { users } = useSelector((state) => state.user);
@@ -33,6 +34,7 @@ function App() {
           }
         >
           <Route path="/" element={<Home />} />
+          <Route path="/yourstore" element={<Mystore />} />
         </Route>
       </>
     )

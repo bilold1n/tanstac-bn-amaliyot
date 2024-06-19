@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebasy/firebasyConfig";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import { signOut } from "firebase/auth";
 import { useStore } from "../apps/myzustand/index";
@@ -150,12 +150,17 @@ export default function Header() {
                 className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">{cart.length}</span>
+                  <span className="font-bold text-lg">
+                    {cart.length} product
+                  </span>
                   <span className="text-info">Subtotal: $999</span>
                   <div className="card-actions">
-                    <button className="btn btn-primary btn-block">
+                    <Link
+                      to={"/yourstore"}
+                      className="btn btn-primary btn-block"
+                    >
                       View cart
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
