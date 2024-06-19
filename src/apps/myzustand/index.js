@@ -2,19 +2,7 @@ import { create } from "zustand";
 
 export const useStore = create((set) => ({
   cart: JSON.parse(localStorage.getItem("cart")) ?? [],
-  addtocart: (id) =>
-    set((state) => {
-      const itemIndex = state.cart.findIndex((item) => item.id === id);
-      if (itemIndex !== -1) {
-        const newCart = [...state.cart];
-        newCart[itemIndex].count += 1;
-        localStorage.setItem("cart", JSON.stringify(newCart));
-        return { cart: newCart };
-      }
-      const newCart = [...state.cart, { id, count: 1 }];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return { cart: newCart };
-    }),
+
   deleteitem: (id) =>
     set((state) => {
       const newCart = state.cart.filter((item) => item.id !== id);
@@ -46,6 +34,13 @@ export const useStore = create((set) => ({
       } else {
         newCart.splice(itemIndex, 1);
       }
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return { cart: newCart };
+    }),
+  addNewProduct: (id, title, price, img) =>
+    set((state) => {
+      const newProduct = { id, title, price, img, count: 1 };
+      const newCart = [...state.cart, newProduct];
       localStorage.setItem("cart", JSON.stringify(newCart));
       return { cart: newCart };
     }),

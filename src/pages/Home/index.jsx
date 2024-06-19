@@ -7,9 +7,10 @@ export default function Home() {
   const [select, setSelect] = useState("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
-  const { addtocart, cart, increment, decrement } = useStore((state) => state);
-  console.log(increment);
-  console.log(addtocart);
+  const { cart, increment, decrement, addNewProduct } = useStore(
+    (state) => state
+  );
+
   const { data, isLoading, erorr } = useQuery({
     queryKey: [select, search, sort],
     queryFn: async () => {
@@ -159,12 +160,6 @@ export default function Home() {
                       <div className="flex items-center justify-center gap-5">
                         <button
                           onClick={() => {
-                            // if (
-                            //   cart[cart.findIndex((item) => item.id === id)]
-                            //     .count === 1
-                            // ) {
-                            //   return dispach(deleteitem(id));
-                            // }
                             decrement(id);
                           }}
                           className="btn  btn-primary"
@@ -183,7 +178,9 @@ export default function Home() {
                       </div>
                     ) : (
                       <button
-                        onClick={() => addtocart(id)}
+                        onClick={() => {
+                          addNewProduct(id, title, price, images);
+                        }}
                         className="btn  btn-primary"
                       >
                         Add to Cart
